@@ -40,7 +40,7 @@
             }
 
             // Récupérer les données des commits depuis l'API
-            fetch('/commits/')
+            fetch('/extract-minutes/')
                 .then(response => response.json())
                 .then(data => {
                     drawHistogram(data);  // Appeler la fonction pour dessiner l'histogramme

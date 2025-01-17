@@ -39,8 +39,8 @@ def mongraphique():
 def monhistogramme():
     return render_template("histogramme.html")
 
-@app.route('/commits/')
-def commits():
+@app.route('/extract-minutes/')
+def extract():
     # URL de l'API GitHub pour récupérer les commits
     url = 'https://api.github.com/repos/OpenRSI/5MCSI_Metriques/commits'
 
@@ -68,6 +68,11 @@ def extract_minutes(date_string):
     """ Extraire la minute d'une date au format ISO 8601 """
     date_object = datetime.strptime(date_string, '%Y-%m-%dT%H:%M:%SZ')
     return date_object.minute
+
+
+@app.route("/commits/")
+def commits():
+    return render_template("commits.html")
 
 if __name__ == "__main__":
   app.run(debug=True)
