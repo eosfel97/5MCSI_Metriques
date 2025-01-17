@@ -1,53 +1,59 @@
 <!DOCTYPE html>
 <html lang="fr">
-  <head>
-    <meta charset="UTF-8" />
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Graphique des Commits</title>
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-  </head>
-  <body>
+</head>
+<body>
+    <h1>Graphique des commits par minute</h1>
+
+    <!-- Conteneur pour le graphique -->
     <div id="chart_div"></div>
 
-    <script>
-      // Charger Google Charts
-      google.charts.load('current', { packages: ['corechart'] });
+    <script type="text/javascript">
+        // Charger le package de Google Charts
+        google.charts.load('current', { packages: ['corechart', 'line'] });
+        google.charts.setOnLoadCallback(drawChart);
 
-      // Callback une fois Google Charts chargé
-      google.charts.setOnLoadCallback(drawChart);
+        // Fonction pour dessiner le graphique
+        function drawChart() {
+            // Faire une requête pour récupérer les données des commits
+            fetch('/commits/')
+                .then(response => response.json())
+                .then(data => {
+                    // Préparer les données pour Google Charts
+                    var chartData = new google.visualization.DataTable();
+                    chartData.addColumn('number', 'Minute');  // Axe X : minutes
+                    chartData.addColumn('number', 'Commits'); // Axe Y : nombre de commits
 
-      // Fonction pour dessiner le graphique
-      function drawChart() {
-        // Récupérer les données de l'API /commits/
-        fetch('/commits/')
-          .then(response => response.json())  // Convertir la réponse en JSON
-          .then(data => {
-            // Convertir les données récupérées en un tableau utilisable par Google Charts
-            var dataTable = new google.visualization.DataTable();
-            dataTable.addColumn('string', 'Minute');  // Colonne pour les minutes
-            dataTable.addColumn('number', 'Nombre de Commits');  // Colonne pour les commits
+                    // Ajouter les données récupérées
+                    data.results.forEach(entry => {
+                        chartData.addRow([entry.minute, entry.count]);
+                    });
 
-            // Remplir les données du graphique
-            data.results.forEach(entry => {
-              dataTable.addRow([entry.minute.toString(), entry.count]);  // Ajouter une ligne de données
-            });
+                    // Configurer les options du graphique
+                    var options = {
+                        title: 'Nombre de commits par minute',
+                        curveType: 'function',
+                        legend: { position: 'bottom' },
+                        hAxis: {
+                            title: 'Minute'
+                        },
+                        vAxis: {
+                            title: 'Nombre de commits'
+                        }
+                    };
 
-            // Définir les options du graphique
-            var options = {
-              title: 'Nombre de Commits Par Minute',
-              curveType: 'function',  // Courbe lissée
-              legend: { position: 'bottom' },
-              hAxis: { title: 'Minute' },
-              vAxis: { title: 'Nombre de Commits' }
-            };
-
-            // Créer et dessiner le graphique
-            var chart = new google.visualization.LineChart(document.getElementById('chart_div'));
-            chart.draw(dataTable, options);
-          })
-          .catch(error => {
-            console.error('Erreur lors de la récupération des données:', error);
-          });
-      }
+                    // Créer et dessiner le graphique
+                    var chart = new google.visualization.LineChart(document.getElementById('chart_div'));
+                    chart.draw(chartData, options);
+                })
+                .catch(error => {
+                    console.error('Erreur lors de la récupération des données:', error);
+                });
+        }
     </script>
-  </body>
+</body>
 </html>
