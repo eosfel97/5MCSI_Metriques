@@ -1,7 +1,6 @@
 from flask import Flask, render_template_string, render_template, jsonify
 from flask import render_template
 from flask import json
-import requests
 from collections import Counter
 from datetime import datetime
 from urllib.request import urlopen
@@ -66,7 +65,6 @@ def extract_minutes(date_string):
     """ Extraire la minute d'un commit au format ISO 8601 """
     date_object = datetime.strptime(date_string, '%Y-%m-%dT%H:%M:%SZ')
     return date_object.minute
-
 
 if __name__ == "__main__":
   app.run(debug=True)
