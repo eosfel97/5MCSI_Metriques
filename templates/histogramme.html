@@ -4,21 +4,42 @@
     <script type="text/javascript">
       google.charts.load("current", {packages:["corechart"]});
       google.charts.setOnLoadCallback(drawChart);
-      function drawChart() {
-        var data = new google.visualization.DataTable();
-            dataTable.addColumn('string', 'Date');
-             dataTable.addColumn('number', 'Valeur');
-                data.results.forEach(entry => {
-      var date = new Date(entry.Jour * 1000);
-        dataTable.addRow([date.toLocaleDateString(), entry.temp]);
-                 });
-        var options = {
-          title: 'Lengths of dinosaurs, in meters',
-          legend: { position: 'none' },
-        };
 
-        var chart = new google.visualization.Histogram(document.getElementById('chart_div'));
-        chart.draw(data, options);
+      function drawChart() {
+        // Fonction pour dessiner le graphique avec les données
+        function drawHistogram(data) {
+          var dataTable = new google.visualization.DataTable();
+          dataTable.addColumn('string', 'Date');
+          dataTable.addColumn('number', 'Température');
+          
+          data.results.forEach(entry => {
+            var date = new Date(entry.Jour * 1000);  // Convertir le timestamp Unix en date
+            dataTable.addRow([date.toLocaleDateString(), entry.temp]);
+          });
+
+          // Options de l'histogramme
+          var options = {
+            title: 'Évolution des températures de la ville de Tawarano',
+            legend: { position: 'none' },
+            hAxis: {
+              title: 'Température (°C)',
+            },
+            vAxis: {
+              title: 'Date',
+            },
+          };
+
+          var chart = new google.visualization.Histogram(document.getElementById('chart_div'));
+          chart.draw(dataTable, options);
+        }
+
+        // Récupération des données depuis l'API
+        fetch('/tawarano/')
+          .then(response => response.json())
+          .then(data => {
+            drawHistogram(data);
+          })
+          .catch(error => console.error('Erreur de récupération des données:', error));
       }
     </script>
   </head>
