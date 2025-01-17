@@ -23,35 +23,43 @@
             fetch('/commits/')
                 .then(response => response.json())
                 .then(data => {
-                    // Préparer les données pour Google Charts
-                    var chartData = new google.visualization.DataTable();
-                    chartData.addColumn('number', 'Minute');  // Axe X : minutes
-                    chartData.addColumn('number', 'Commits'); // Axe Y : nombre de commits
+                    // Vérifier si les données sont présentes
+                    if (data.results && data.results.length > 0) {
+                        // Préparer les données pour Google Charts
+                        var chartData = new google.visualization.DataTable();
+                        chartData.addColumn('number', 'Minute');  // Axe X : minutes
+                        chartData.addColumn('number', 'Commits'); // Axe Y : nombre de commits
 
-                    // Ajouter les données récupérées
-                    data.results.forEach(entry => {
-                        chartData.addRow([entry.minute, entry.count]);
-                    });
+                        // Ajouter les données récupérées
+                        data.results.forEach(entry => {
+                            chartData.addRow([entry.minute, entry.count]);
+                        });
 
-                    // Configurer les options du graphique
-                    var options = {
-                        title: 'Nombre de commits par minute',
-                        curveType: 'function',
-                        legend: { position: 'bottom' },
-                        hAxis: {
-                            title: 'Minute'
-                        },
-                        vAxis: {
-                            title: 'Nombre de commits'
-                        }
-                    };
+                        // Configurer les options du graphique
+                        var options = {
+                            title: 'Nombre de commits par minute',
+                            curveType: 'function',
+                            legend: { position: 'bottom' },
+                            hAxis: {
+                                title: 'Minute'
+                            },
+                            vAxis: {
+                                title: 'Nombre de commits'
+                            }
+                        };
 
-                    // Créer et dessiner le graphique
-                    var chart = new google.visualization.LineChart(document.getElementById('chart_div'));
-                    chart.draw(chartData, options);
+                        // Créer et dessiner le graphique
+                        var chart = new google.visualization.LineChart(document.getElementById('chart_div'));
+                        chart.draw(chartData, options);
+                    } else {
+                        // Si aucune donnée n'est disponible
+                        document.getElementById('chart_div').innerHTML = 'Aucune donnée disponible pour les commits.';
+                    }
                 })
                 .catch(error => {
+                    // Gérer les erreurs
                     console.error('Erreur lors de la récupération des données:', error);
+                    document.getElementById('chart_div').innerHTML = 'Erreur lors de la récupération des données.';
                 });
         }
     </script>
