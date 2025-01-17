@@ -3,18 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Graphique des Commits</title>
+    <title>Histogramme des Commits</title>
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-</head>
-<body>
-    <h1>Graphique des commits par minute</h1>
-
-    <!-- Conteneur pour le graphique -->
-    <div id="chart_div"></div>
-
     <script type="text/javascript">
         // Charger le package de Google Charts
-        google.charts.load('current', { packages: ['corechart', 'line'] });
+        google.charts.load('current', { packages: ['corechart', 'bar'] });
         google.charts.setOnLoadCallback(drawChart);
 
         // Fonction pour dessiner le graphique
@@ -38,18 +31,18 @@
                         // Configurer les options du graphique
                         var options = {
                             title: 'Nombre de commits par minute',
-                            curveType: 'function',
-                            legend: { position: 'bottom' },
+                            legend: { position: 'none' },
                             hAxis: {
                                 title: 'Minute'
                             },
                             vAxis: {
                                 title: 'Nombre de commits'
-                            }
+                            },
+                            chartArea: { width: '80%', height: '70%' },
                         };
 
-                        // Créer et dessiner le graphique
-                        var chart = new google.visualization.LineChart(document.getElementById('chart_div'));
+                        // Créer et dessiner l'histogramme
+                        var chart = new google.visualization.Histogram(document.getElementById('chart_div'));
                         chart.draw(chartData, options);
                     } else {
                         // Si aucune donnée n'est disponible
@@ -63,5 +56,11 @@
                 });
         }
     </script>
+</head>
+<body>
+    <h1>Histogramme des commits par minute</h1>
+
+    <!-- Conteneur pour l'histogramme -->
+    <div id="chart_div" style="width: 900px; height: 500px;"></div>
 </body>
 </html>
