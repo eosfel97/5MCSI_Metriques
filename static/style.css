@@ -12,6 +12,8 @@ body {
   background-color: white;
   border-radius: 8px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  opacity: 0;
+  animation: fadeIn 1s forwards, slideIn 1s forwards;
 }
 
 .contact-form h1 {
@@ -23,6 +25,24 @@ body {
 
 .input-group {
   margin-bottom: 1rem;
+  opacity: 0;
+  animation: slideUp 1s ease-out forwards;
+}
+
+.input-group:nth-child(1) {
+  animation-delay: 0.2s;
+}
+
+.input-group:nth-child(2) {
+  animation-delay: 0.4s;
+}
+
+.input-group:nth-child(3) {
+  animation-delay: 0.6s;
+}
+
+.input-group:nth-child(4) {
+  animation-delay: 0.8s;
 }
 
 .input-group label {
@@ -65,6 +85,9 @@ body {
   border-radius: 4px;
   cursor: pointer;
   transition: background-color 0.3s;
+  opacity: 0;
+  animation: slideUp 1s ease-out forwards;
+  animation-delay: 1s;
 }
 
 .btn-submit:hover {
@@ -96,5 +119,39 @@ body {
 
   .btn-submit {
     padding: 10px;
+  }
+}
+
+/* Animation d'apparition */
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+/* Animation de glissement vers le haut */
+@keyframes slideUp {
+  0% {
+    transform: translateY(30px);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+/* Animation de glissement depuis la gauche */
+@keyframes slideIn {
+  0% {
+    transform: translateX(-30px);
+    opacity: 0;
+  }
+  100% {
+    transform: translateX(0);
+    opacity: 1;
   }
 }
