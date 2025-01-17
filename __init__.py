@@ -43,11 +43,39 @@ def monhistogramme():
 def moncommits():
     return render_template("commits.html")
 
-@app.route('/extract-minutes/<date_string>')
+
+
+
+@app.route('/commits/')
+def commits():
+
+    url = 'https://api.github.com/repos/OpenRSI/5MCSI_Metriques/commits'
+
+    response = requests.get(url)
+    commits_data = response.json()
+
+    commit_minutes = []
+    for commit in commits_data:
+        commit_date = commit['commit']['author']['date']
+        minute = extract_minutes(commit_date)
+        commit_minutes.append(minute)
+
+    minute_counts = Counter(commit_minutes)
+    
+
+    minutes = sorted(minute_counts.keys())
+    commit_counts = [minute_counts[minute] for minute in minutes]
+
+
+    return render_template('commits.html', minutes=minutes, commit_counts=commit_counts)
+
 def extract_minutes(date_string):
-        date_object = datetime.strptime(date_string, '%Y-%m-%dT%H:%M:%SZ')
-        minutes = date_object.minute
-        return jsonify({'minutes': minutes})
+    """ Extraire la minute d'une date au format ISO 8601 """
+    date_object = datetime.strptime(date_string, '%Y-%m-%dT%H:%M:%SZ')
+    return date_object.minute
+
+
+
 
 if __name__ == "__main__":
   app.run(debug=True)
