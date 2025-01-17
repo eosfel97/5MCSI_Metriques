@@ -6,7 +6,7 @@
       google.charts.setOnLoadCallback(drawChart);
 
       function drawChart() {
-        // Fonction pour dessiner le graphique avec les données
+         // Convertir les données récupérées en un tableau utilisable par Google Charts
         function drawHistogram(data) {
           var dataTable = new google.visualization.DataTable();
           dataTable.addColumn('string', 'Date');
@@ -17,7 +17,7 @@
             dataTable.addRow([date.toLocaleDateString(), entry.temp]);
           });
 
-          // Options de l'histogramme
+            // Configurer les options du graphique en ligne
           var options = {
             title: 'Évolution des températures de la ville de Tawarano',
             legend: { position: 'none' },
@@ -33,7 +33,7 @@
           chart.draw(dataTable, options);
         }
 
-        // Récupération des données depuis l'API
+        // Récupération de données depuis notre API /tawarano/
         fetch('/tawarano/')
           .then(response => response.json())
           .then(data => {
