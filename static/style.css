@@ -1,165 +1,172 @@
+body {
+  font-family: 'Open Sans', sans-serif;
+  margin: 0;
+  padding: 0;
+  background: linear-gradient(45deg, #FF8A00, #FF0080, #8000FF, #00C3FF);
+  background-size: 400% 400%;
+  animation: gradientBackground 10s ease infinite; /* Animation du fond */
+  height: 100vh; /* Hauteur pleine page */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
 
-    body {
-      font-family: 'Open Sans', sans-serif;
-      margin: 0;
-      padding: 0;
-      background-color: #f4f4f4;
-    }
+/* Animation du dégradé */
+@keyframes gradientBackground {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
 
-    .contact-form {
-      max-width: 600px;
-      margin: 2rem auto;
-      padding: 2rem;
-      background-color: white;
-      border-radius: 8px;
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-      opacity: 0;
-      animation: fadeIn 1s forwards, slideIn 1s forwards;
-    }
+.contact-form {
+  max-width: 600px;
+  margin: 2rem auto;
+  padding: 2rem;
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  opacity: 0;
+  animation: fadeIn 1s forwards, slideIn 1s forwards;
+}
 
-    .contact-form h1 {
-      font-size: 2rem;
-      color: #333;
-      text-align: center;
-      margin-bottom: 1rem;
-    }
+.contact-form h1 {
+  font-size: 2rem;
+  color: #333;
+  text-align: center;
+  margin-bottom: 1rem;
+}
 
-    .input-group {
-      margin-bottom: 1rem;
-      opacity: 0;
-      animation: slideUp 1s ease-out forwards;
-    }
+.input-group {
+  margin-bottom: 1rem;
+  opacity: 0;
+  animation: slideUp 1s ease-out forwards;
+}
 
-    .input-group:nth-child(1) {
-      animation-delay: 0.2s;
-    }
+.input-group:nth-child(1) {
+  animation-delay: 0.2s;
+}
 
-    .input-group:nth-child(2) {
-      animation-delay: 0.4s;
-    }
+.input-group:nth-child(2) {
+  animation-delay: 0.4s;
+}
 
-    .input-group:nth-child(3) {
-      animation-delay: 0.6s;
-    }
+.input-group:nth-child(3) {
+  animation-delay: 0.6s;
+}
 
-    .input-group:nth-child(4) {
-      animation-delay: 0.8s;
-    }
+.input-group:nth-child(4) {
+  animation-delay: 0.8s;
+}
 
-    .input-group label {
-      display: block;
-      font-size: 1rem;
-      color: #555;
-      margin-bottom: 0.5rem;
-    }
+.input-group label {
+  display: block;
+  font-size: 1rem;
+  color: #555;
+  margin-bottom: 0.5rem;
+}
 
-    .input-group input,
-    .input-group textarea {
-      width: 100%;
-      padding: 10px;
-      font-size: 1rem;
-      border: 1px solid #ccc;
-      border-radius: 4px;
-      background-color: #fafafa;
-      transition: background-color 0.3s, border-color 0.3s;
-    }
+.input-group input,
+.input-group textarea {
+  width: 100%;
+  padding: 10px;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  background-color: #fafafa;
+  transition: background-color 0.3s, border-color 0.3s;
+}
 
-    .input-group input:hover,
-    .input-group textarea:hover {
-      background-color: #e3f2fd; /* Couleur de fond au survol */
-      border-color: #007BFF;    /* Changement de la bordure */
-    }
+.input-group input:hover,
+.input-group textarea:hover {
+  background-color: #e3f2fd; /* Couleur de fond au survol */
+  border-color: #007BFF;    /* Changement de la bordure */
+}
 
-    /* Effet de survol pour les champs "required" */
-    .input-group input:required:hover,
-    .input-group textarea:required:hover {
-      border-color: red; /* Changement de la couleur de bordure en rouge */
-      background-color: #ffe6e6; /* Fond légèrement rougeâtre */
-    }
+.btn-submit {
+  display: block;
+  width: 100%;
+  padding: 12px;
+  background-color: #007BFF;
+  color: white;
+  font-size: 1rem;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  opacity: 0;
+  animation: slideUp 1s ease-out forwards;
+  animation-delay: 1s;
+}
 
-    .input-group textarea {
-      resize: vertical;
-      height: 150px;
-    }
+.btn-submit:hover {
+  background-color: #0056b3; /* Changement de la couleur au survol */
+}
 
-    .btn-submit {
-      display: block;
-      width: 100%;
-      padding: 12px;
-      background-color: #007BFF;
-      color: white;
-      font-size: 1rem;
-      border: none;
-      border-radius: 4px;
-      cursor: pointer;
-      transition: background-color 0.3s;
-      opacity: 0;
-      animation: slideUp 1s ease-out forwards;
-      animation-delay: 1s;
-    }
+.footer {
+  text-align: center;
+  margin-top: 2rem;
+  font-size: 0.9rem;
+  color: #555;
+}
 
-    .btn-submit:hover {
-      background-color: #0056b3; /* Changement de la couleur au survol */
-    }
+.footer a {
+  color: #007BFF;
+  text-decoration: none;
+  transition: color 0.3s;
+}
 
-    .footer {
-      text-align: center;
-      margin-top: 2rem;
-      font-size: 0.9rem;
-      color: #555;
-    }
+.footer a:hover {
+  color: #0056b3; /* Changement de couleur du lien */
+  text-decoration: underline;
+}
 
-    .footer a {
-      color: #007BFF;
-      text-decoration: none;
-      transition: color 0.3s;
-    }
+@media (max-width: 768px) {
+  .contact-form {
+    padding: 1rem;
+  }
 
-    .footer a:hover {
-      color: #0056b3; /* Changement de couleur du lien */
-      text-decoration: underline;
-    }
+  .btn-submit {
+    padding: 10px;
+  }
+}
 
-    @media (max-width: 768px) {
-      .contact-form {
-        padding: 1rem;
-      }
+/* Animation d'apparition */
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
 
-      .btn-submit {
-        padding: 10px;
-      }
-    }
+/* Animation de glissement vers le haut */
+@keyframes slideUp {
+  0% {
+    transform: translateY(30px);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
 
-    /* Animation d'apparition */
-    @keyframes fadeIn {
-      0% {
-        opacity: 0;
-      }
-      100% {
-        opacity: 1;
-      }
-    }
-
-    /* Animation de glissement vers le haut */
-    @keyframes slideUp {
-      0% {
-        transform: translateY(30px);
-        opacity: 0;
-      }
-      100% {
-        transform: translateY(0);
-        opacity: 1;
-      }
-    }
-
-    /* Animation de glissement depuis la gauche */
-    @keyframes slideIn {
-      0% {
-        transform: translateX(-30px);
-        opacity: 0;
-      }
-      100% {
-        transform: translateX(0);
-        opacity: 1;
-      }
-    }
+/* Animation de glissement depuis la gauche */
+@keyframes slideIn {
+  0% {
+    transform: translateX(-30px);
+    opacity: 0;
+  }
+  100% {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
