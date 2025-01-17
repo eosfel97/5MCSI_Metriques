@@ -1,6 +1,7 @@
 from flask import Flask, render_template_string, render_template, jsonify
 from flask import render_template
 from flask import json
+import requests
 from collections import Counter
 from datetime import datetime
 from urllib.request import urlopen
@@ -41,13 +42,11 @@ def monhistogramme():
 
 @app.route('/commits/')
 def commits():
-    # URL de l'API GitHub pour récupérer les commits
+    # Récupérer les commits depuis l'API GitHub
     url = 'https://api.github.com/repos/OpenRSI/5MCSI_Metriques/commits'
-    
-    # Récupérer les commits
     response = requests.get(url)
     commits_data = response.json()
-    
+
     # Extraire les minutes des commits
     commit_minutes = []
     for commit in commits_data:
@@ -58,18 +57,15 @@ def commits():
     # Compter les commits par minute
     minute_counts = Counter(commit_minutes)
     
-    # Préparer les données pour le graphique
-    minutes = sorted(minute_counts.keys())
-    commit_counts = [minute_counts[minute] for minute in minutes]
+    # Formater les données pour l'affichage dans le graphique
+    results = [{'minute': minute, 'count': minute_counts[minute]} for minute in sorted(minute_counts.keys())]
 
-    # Passer les données à la template
-    return render_template('commits.html', minutes=minutes, commit_counts=commit_counts)
+    return jsonify(results=results)
 
 def extract_minutes(date_string):
-    """ Extraire la minute d'une date au format ISO 8601 """
+    """ Extraire la minute d'un commit au format ISO 8601 """
     date_object = datetime.strptime(date_string, '%Y-%m-%dT%H:%M:%SZ')
     return date_object.minute
-
 
 
 if __name__ == "__main__":
